@@ -5,27 +5,23 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export const videosRouter = router({
+export const videoCollectionRouter = router({
   get: publicProcedure.query(async () => {
-    return prisma.video.findMany();
+    return prisma.videoCollection.findMany();
   }),
   create: publicProcedure
     .input(
       z.object({
         title: z.string(),
         description: z.string(),
-        url: z.string(),
-        videoCollectionId: z.number(),
       })
     )
     .mutation(async (opts) => {
       const { input } = opts;
-      prisma.video.create({
+      prisma.videoCollection.create({
         data: {
           title: input.title,
           description: input.description,
-          url: input.url,
-          videoCollectionId: input.videoCollectionId,
         },
       });
     }),
@@ -37,7 +33,7 @@ export const videosRouter = router({
     )
     .mutation(async (opts) => {
       const { input } = opts;
-      prisma.video.delete({
+      prisma.videoCollection.delete({
         where: {
           id: input.id,
         },

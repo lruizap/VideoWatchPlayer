@@ -1,13 +1,9 @@
-"use client";
-
-import { trpc } from "@/server/client";
+import { VideoCollection } from "@/components/Videos/VideoCollection";
 
 export default function Home() {
-  const videos = trpc.videos.get.useQuery();
-
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      {JSON.stringify(videos.data)}
-    </main>
+    <div className="flex min-h-screen flex-col items-center justify-between p-24 bg-zinc-700">
+      <VideoCollection />
+    </div>
   );
 }
