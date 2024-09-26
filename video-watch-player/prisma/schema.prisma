@@ -1,0 +1,55 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
+  name      String?
+  password  String
+  videos    Video[]   // Relación de 1-N con videos subidos por el usuario
+  likes     Like[]    // Relación de 1-N con los likes dados por el usuario
+  sessions  Session[] // Relación de 1-N con las sesiones activas del usuario
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Video {
+  id         Int       @id @default(autoincrement())
+  title      String
+  description String?
+  url        String     // URL o path del video almacenado
+  userId     Int        // El tipo aquí debe ser Int para coincidir con el id de User
+  user       User       @relation(fields: [userId], references: [id]) // Relación N-1 con el usuario
+  likes      Like[]     // Relación 1-N con los likes
+  views      Int        @default(0)  // Contador de visitas
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+}
+
+model Like {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  videoId   Int
+  user      User     @relation(fields: [userId], references: [id])   // Relación N-1 con el usuario
+  video     Video    @relation(fields: [videoId], references: [id])  // Relación N-1 con el video
+  createdAt DateTime @default(now())
+}
+
+model Session {
+  id           Int      @id @default(autoincrement())
+  sessionToken String   @unique
+  userId       Int
+  user         User     @relation(fields: [userId], references: [id])  // Relación N-1 con el usuario
+  expiresAt    DateTime // Tiempo de expiración de la sesión
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
