@@ -26,14 +26,14 @@ import { useState } from "react";
 export function VideoCollection() {
   const videoCollections = trpc.videoCollection.get.useQuery();
   const addVideoCollection = trpc.videoCollection.create.useMutation();
-  const utils = trpc.useContext();
+  const utils = trpc.useUtils();
 
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
 
-  const addNewVideoCollection = async () => {
+  const addNewVideoCollection = () => {
     try {
-      await addVideoCollection.mutateAsync({
+      addVideoCollection.mutateAsync({
         title,
         description,
       });
@@ -55,7 +55,7 @@ export function VideoCollection() {
             <CardTitle>{collection.title}</CardTitle>
             <CardDescription>{collection.description}</CardDescription>
           </CardHeader>
-          <CardContent></CardContent>
+          <CardContent>Videos</CardContent>
         </Card>
       ))}
 

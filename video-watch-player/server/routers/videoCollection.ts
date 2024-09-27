@@ -18,7 +18,7 @@ export const videoCollectionRouter = router({
     )
     .mutation(async (opts) => {
       const { input } = opts;
-      prisma.videoCollection.create({
+      await prisma.videoCollection.create({
         data: {
           title: input.title,
           description: input.description,

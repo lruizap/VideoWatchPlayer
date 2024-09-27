@@ -20,7 +20,7 @@ export const videosRouter = router({
     )
     .mutation(async (opts) => {
       const { input } = opts;
-      prisma.video.create({
+      await prisma.video.create({
         data: {
           title: input.title,
           description: input.description,

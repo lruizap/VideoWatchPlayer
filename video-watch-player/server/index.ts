@@ -3,8 +3,8 @@ import { videosRouter } from "./routers/videos";
 import { router } from "./trpc";
 
 export const appRouter = router({
-  videoCollection: videoCollectionRouter,
   videos: videosRouter,
+  videoCollection: videoCollectionRouter,
 });
 
 export type AppRouter = typeof appRouter;
