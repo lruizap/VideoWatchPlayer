@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-
 import { Table, TableCell, TableHead, TableRow } from "@/components/ui/table";
 import {
   Carousel,
@@ -17,7 +16,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
 import { trpc } from "@/server/client";
 import { Button } from "../ui/button";
 
@@ -45,19 +43,19 @@ export default function VideoCarrousel(videoCollectionId: {
         {videocollection.data?.videos.map((video) => (
           <CarouselItem
             key={video.id}
-            className="flex justify-center items-center "
+            className="flex justify-center items-center"
           >
-            <Card className="m-5 flex flex-col items-center justify-center p-4 shadow-lg">
-              <CardHeader className="text-center mb-4">
-                <CardTitle className="text-xl font-bold">
+            <Card className="m-3 flex flex-col items-center justify-center p-2 shadow-md max-w-xs">
+              <CardHeader className="text-center mb-3">
+                <CardTitle className="text-lg font-semibold">
                   {video.title}
                 </CardTitle>
-                <CardDescription className="text-gray-600">
+                <CardDescription className="text-sm text-gray-600">
                   {video.description}
                 </CardDescription>
               </CardHeader>
-              <CardContent className="mb-4">
-                <video controls className="max-w-md">
+              <CardContent className="mb-3">
+                <video controls className="max-w-xs h-auto">
                   <source src={`${video.url}`} type="video/mp4" />
                 </video>
               </CardContent>
@@ -65,24 +63,28 @@ export default function VideoCarrousel(videoCollectionId: {
               <Table className="text-center">
                 <TableRow>
                   <TableCell className="items-center">
-                    <TableHead className="font-semibold">Likes</TableHead>
-                    <CardContent className="text-lg">{video.likes}</CardContent>
+                    <TableHead className="font-semibold text-sm">
+                      Likes
+                    </TableHead>
+                    <CardContent className="text-sm">{video.likes}</CardContent>
                   </TableCell>
                   <TableCell className="items-center">
-                    <TableHead className="font-semibold">Views</TableHead>
-                    <CardContent>{video.views}</CardContent>
+                    <TableHead className="font-semibold text-sm">
+                      Views
+                    </TableHead>
+                    <CardContent className="text-sm">{video.views}</CardContent>
                   </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell className="pt-5 mb-4">
-                    <Button>
+                  <TableCell className="pt-3">
+                    <Button className="p-2 text-xs">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
                         stroke="currentColor"
-                        className="size-6"
+                        className="w-4 h-4"
                       >
                         <path
                           strokeLinecap="round"
@@ -94,6 +96,7 @@ export default function VideoCarrousel(videoCollectionId: {
                   </TableCell>
                   <TableCell>
                     <Button
+                      className="p-5 text-xs"
                       onClick={() => {
                         deleteVideo(+video.id);
                       }}
