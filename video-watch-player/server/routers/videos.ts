@@ -9,6 +9,7 @@ export const videosRouter = router({
   get: publicProcedure.query(async () => {
     return prisma.video.findMany();
   }),
+
   create: publicProcedure
     .input(
       z.object({
@@ -29,6 +30,7 @@ export const videosRouter = router({
         },
       });
     }),
+
   delete: publicProcedure
     .input(
       z.object({
@@ -37,7 +39,7 @@ export const videosRouter = router({
     )
     .mutation(async (opts) => {
       const { input } = opts;
-      prisma.video.delete({
+      await prisma.video.delete({
         where: {
           id: input.id,
         },
