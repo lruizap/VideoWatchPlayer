@@ -1,3 +1,5 @@
+// components/VideoCarrousel.tsx
+
 "use client";
 
 import React from "react";
@@ -29,6 +31,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import VideoPlayer from "./VideoPlayer";
 
 export default function VideoCarrousel(videoCollectionId: {
   videoCollectionId: any;
@@ -99,22 +102,7 @@ export default function VideoCarrousel(videoCollectionId: {
                 </CardDescription>
               </CardHeader>
               <CardContent className="mb-3">
-                <video
-                  controls
-                  className="max-w-xs h-auto"
-                  onTimeUpdate={(e) => {
-                    const videoElement = e.currentTarget;
-                    const percentageWatched =
-                      (videoElement.currentTime / videoElement.duration) * 100;
-
-                    if (percentageWatched == 100) {
-                      addView(video.id);
-                      videoElement.ontimeupdate = null;
-                    }
-                  }}
-                >
-                  <source src={`${video.url}`} type="video/mp4" />
-                </video>
+                <VideoPlayer src={video.url} onView={() => addView(video.id)} />
               </CardContent>
 
               <Table className="text-center">

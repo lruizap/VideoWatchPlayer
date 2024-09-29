@@ -1,3 +1,5 @@
+// components/VideoCollection.tsx
+
 "use client";
 
 import { trpc } from "@/server/client";
