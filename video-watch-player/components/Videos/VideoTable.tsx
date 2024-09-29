@@ -19,6 +19,17 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 import { trpc } from "@/server/client";
 
@@ -69,6 +80,12 @@ export default function VideoTable(videoCollectionId: {
     } catch (error) {
       console.error("Error al crear la colección de videos:", error);
     }
+  };
+
+  const delVideo = trpc.videos.delete.useMutation();
+
+  const deleteVideo = (id: number) => {
+    delVideo.mutate({ id });
   };
 
   const delVideoCollection = trpc.videoCollection.delete.useMutation();
@@ -135,12 +152,40 @@ export default function VideoTable(videoCollectionId: {
             </Dialog>
           </TableCell>
           <TableCell>
-            <Button
-              onClick={() =>
-                deleteVideoCollection(+videoCollectionId.videoCollectionId)
-              }
-            >
-              Delete Collection
+            <Button>
+              <AlertDialog>
+                <AlertDialogTrigger>Delete Collection</AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      Are you absolutely sure?
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This action cannot be undone. This will permanently delete
+                      your Collection and remove your data from our servers.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction
+                      className="p-5 text-xs"
+                      onClick={() => {
+                        if (videocollection?.data?.videos?.length != 0) {
+                          videocollection.data?.videos.map((video) =>
+                            deleteVideo(video.id)
+                          );
+                        }
+
+                        deleteVideoCollection(
+                          videoCollectionId.videoCollectionId
+                        );
+                      }}
+                    >
+                      Delete Collection
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </Button>
           </TableCell>
         </TableRow>

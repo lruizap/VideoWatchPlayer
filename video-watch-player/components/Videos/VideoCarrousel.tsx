@@ -19,6 +19,18 @@ import {
 import { trpc } from "@/server/client";
 import { Button } from "../ui/button";
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+
 export default function VideoCarrousel(videoCollectionId: {
   videoCollectionId: any;
 }) {
@@ -95,13 +107,33 @@ export default function VideoCarrousel(videoCollectionId: {
                     </Button>
                   </TableCell>
                   <TableCell>
-                    <Button
-                      className="p-5 text-xs"
-                      onClick={() => {
-                        deleteVideo(+video.id);
-                      }}
-                    >
-                      Delete Video
+                    <Button>
+                      <AlertDialog>
+                        <AlertDialogTrigger>Delete Video</AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>
+                              Are you absolutely sure?
+                            </AlertDialogTitle>
+                            <AlertDialogDescription>
+                              This action cannot be undone. This will
+                              permanently delete your video and remove your data
+                              from our servers.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction
+                              className="p-5 text-xs"
+                              onClick={() => {
+                                deleteVideo(+video.id);
+                              }}
+                            >
+                              Delete Video
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
                     </Button>
                   </TableCell>
                 </TableRow>
