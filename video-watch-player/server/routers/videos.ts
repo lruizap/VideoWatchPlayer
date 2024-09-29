@@ -1,5 +1,5 @@
 import { publicProcedure, router } from "../trpc";
-import { z } from "zod";
+import { set, z } from "zod";
 
 import { PrismaClient } from "@prisma/client";
 
@@ -42,6 +42,70 @@ export const videosRouter = router({
       await prisma.video.delete({
         where: {
           id: input.id,
+        },
+      });
+    }),
+
+  like: publicProcedure
+    .input(
+      z.object({
+        id: z.number(),
+      })
+    )
+    .mutation(async (opts) => {
+      const { input } = opts;
+      await prisma.video.update({
+        data: {
+          likes: {
+            increment: 1,
+          },
+        },
+        where: {
+          id: input.id,
+        },
+      });
+    }),
+
+  dislike: publicProcedure
+    .input(
+      z.object({
+        id: z.number(),
+      })
+    )
+    .mutation(async (opts) => {
+      const { input } = opts;
+      const video = await prisma.video.findUnique({
+        where: {
+          id: input.id,
+        },
+        select: {
+          likes: true,
+        },
+      });
+
+      if (video && video.likes > 0) {
+        await prisma.video.update({
+          data: {
+            likes: {
+              decrement: 1,
+            },
+          },
+          where: {
+            id: input.id,
+          },
+        });
+      }
+    }),
+
+  view: publicProcedure
+    .input(z.object({ id: z.number() }))
+    .mutation(async ({ input }) => {
+      const video = await prisma.video.update({
+        where: { id: input.id },
+        data: {
+          views: {
+            increment: 1,
+          },
         },
       });
     }),

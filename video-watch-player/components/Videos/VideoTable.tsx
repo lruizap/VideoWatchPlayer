@@ -152,23 +152,22 @@ export default function VideoTable(videoCollectionId: {
             </Dialog>
           </TableCell>
           <TableCell>
-            <Button>
-              <AlertDialog>
-                <AlertDialogTrigger>Delete Collection</AlertDialogTrigger>
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>
-                      Are you absolutely sure?
-                    </AlertDialogTitle>
-                    <AlertDialogDescription>
-                      This action cannot be undone. This will permanently delete
-                      your Collection and remove your data from our servers.
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction
-                      className="p-5 text-xs"
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button className="bg-red-800">Delete Collection</Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This action cannot be undone. This will permanently delete
+                    your Collection and remove your data from our servers.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction asChild>
+                    <Button
                       onClick={() => {
                         if (videocollection?.data?.videos?.length != 0) {
                           videocollection.data?.videos.map((video) =>
@@ -180,13 +179,14 @@ export default function VideoTable(videoCollectionId: {
                           videoCollectionId.videoCollectionId
                         );
                       }}
+                      className="bg-red-800"
                     >
                       Delete Collection
-                    </AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
-            </Button>
+                    </Button>
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </TableCell>
         </TableRow>
       </TableBody>
