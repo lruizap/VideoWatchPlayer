@@ -100,11 +100,6 @@ This will bring up the application at `http://localhost:3000`.
 
 Load states (`isLoading`) and basic error handling have been implemented on the frontend to allow the application to correctly handle timeouts when querying the API and handle possible errors in responses.
 
-## Extra Points
-
-- The application includes a simple design but can be easily customized with the TailwindCSS classes.
-- You can add advanced controls to the player, such as playback speed and fullscreen, for extra points.
-
 ## Credits
 
 Developed as part of a technical test for **VIDEXT**.
