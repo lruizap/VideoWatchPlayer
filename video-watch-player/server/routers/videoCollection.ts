@@ -10,6 +10,24 @@ export const videoCollectionRouter = router({
     return prisma.videoCollection.findMany();
   }),
 
+  get_collection: publicProcedure
+    .input(
+      z.object({
+        id: z.string().transform((val) => Number(val)),
+      })
+    )
+    .query(async (opts) => {
+      const { input } = opts;
+      return prisma.videoCollection.findUnique({
+        where: {
+          id: input.id,
+        },
+        include: {
+          videos: true,
+        },
+      });
+    }),
+
   getById: publicProcedure
     .input(
       z.object({
@@ -18,7 +36,7 @@ export const videoCollectionRouter = router({
     )
     .query(async (opts) => {
       const { input } = opts;
-      return prisma.videoCollection.findFirst({
+      return prisma.videoCollection.findUnique({
         where: {
           id: input.id,
         },

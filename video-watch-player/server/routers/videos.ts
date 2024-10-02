@@ -1,5 +1,5 @@
 import { publicProcedure, router } from "../trpc";
-import { set, z } from "zod";
+import { string, z } from "zod";
 
 import { PrismaClient } from "@prisma/client";
 
@@ -9,6 +9,36 @@ export const videosRouter = router({
   get: publicProcedure.query(async () => {
     return prisma.video.findMany();
   }),
+
+  get_video: publicProcedure
+    .input(
+      z.object({
+        id: z.string().transform((val) => Number(val)),
+      })
+    )
+    .query(async (opts) => {
+      const { input } = opts;
+      return prisma.video.findUnique({
+        where: {
+          id: input.id,
+        },
+      });
+    }),
+
+  getById: publicProcedure
+    .input(
+      z.object({
+        id: z.number(),
+      })
+    )
+    .query(async (opts) => {
+      const { input } = opts;
+      return prisma.video.findUnique({
+        where: {
+          id: input.id,
+        },
+      });
+    }),
 
   create: publicProcedure
     .input(
