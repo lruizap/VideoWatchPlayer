@@ -84,6 +84,12 @@ npm run dev
 
 This will bring up the application at `http://localhost:3000`.
 
+The `get_video` and `get_videocollection` data call can be accessed using the following urls respectively:
+
+`http://localhost:3000/api/trpc/get_video?input={‘id’=‘1’}`
+
+`http://localhost:3000/api/trpc/get_videocollection?input={‘id’=‘1’}`
+
 ### tRPC
 
 - The backend logic is handled by tRPC, located in `/server/`.
