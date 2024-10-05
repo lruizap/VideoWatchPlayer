@@ -11,9 +11,9 @@ export const appRouter = router({
 
   videoCollection: videoCollectionRouter,
 
-  get_collections: videoCollectionRouter.get,
-  get_collection: videoCollectionRouter.get_collection,
-  add_collection: videoCollectionRouter.create,
+  get_videocollections: videoCollectionRouter.get,
+  get_videocollection: videoCollectionRouter.get_collection,
+  add_videocollection: videoCollectionRouter.create,
 });
 
 export type AppRouter = typeof appRouter;

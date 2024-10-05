@@ -90,6 +90,19 @@ The `get_video` and `get_videocollection` data call can be accessed using the fo
 
 `http://localhost:3000/api/trpc/get_videocollection?input={‘id’=‘1’}`
 
+The `add_video` and `add_videocollection` data call can be accessed using the following urls respectively:
+
+`http://localhost:3000/api/trpc/add_video?input={‘title’=‘title’,‘description’=‘title’,‘url’=‘url’,‘videoCollectionId’=‘2’}`
+
+`http://localhost:3000/api/trpc/add_videocollection?input={‘title’=‘title’,‘description’=‘description’}`
+
+### .env
+
+An .env file containing the following must be created
+
+DATABASE_URL="file:./dev.db"
+NEXT_PUBLIC_APP_URL='<http://localhost:3000>'
+
 ### tRPC
 
 - The backend logic is handled by tRPC, located in `/server/`.
